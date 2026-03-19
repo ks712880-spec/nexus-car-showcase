@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS - The Future of Driving</title>
+    
+    <!-- CSS link -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Three.js + Extras via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    
+    <!-- GSAP for advanced animations via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Preloader Animation -->
+    <div id="preloader">
+        <div class="loader-content">
+            <h1 class="glitch" data-text="NEXUS">NEXUS</h1>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <p>Initializing Systems...</p>
+        </div>
+    </div>
+
+    <!-- Modern Glassmorphism Navigation -->
+    <nav class="navbar">
+        <div class="logo">NEXUS</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#variants">Variants</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+        </ul>
+        <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Book Test Drive</button>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section featuring 3D Three.js canvas -->
+        <section id="home" class="hero">
+            <!-- 3D Canvas Container -->
+            <div class="canvas-container" id="canvas-container"></div>
+            
+            <div class="hero-content text-overlay">
+                <h1 class="hero-title">Experience <span class="text-gradient">Tomorrow</span></h1>
+                <p class="hero-subtitle">The first fully autonomous hyper-electric vehicle.</p>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">Discover More</button>
+                    <!-- Interaction button with sound effect -->
+                    <button class="btn-secondary play-sound">Interact in 3D</button>
+                </div>
+            </div>
+            
+            <!-- Mouse scroll animation -->
+            <div class="scroll-indicator">
+                <div class="mouse"></div>
+                <p>Scroll to explore</p>
+            </div>
+        </section>
+
+        <!-- About Section (Features & Specs) -->
+        <section id="about" class="about glass-section">
+            <div class="container">
+                <h2 class="section-title">Beyond Performance</h2>
+                <div class="about-grid">
+                    <div class="about-card glass-card">
+                        <h3>0-60 mph</h3>
+                        <p class="stat">1.9s</p>
+                        <p>Instant torque delivery through quad-motor setup.</p>
+                    </div>
+                    <div class="about-card glass-card">
+                        <h3>Range</h3>
+                        <p class="stat">620 mi</p>
+                        <p>Next-gen solid state battery pack.</p>
+                    </div>
+                    <div class="about-card glass-card">
+                        <h3>Top Speed</h3>
+                        <p class="stat">250 mph</p>
+                        <p>Aerodynamically perfected for maximum velocity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Car Variants / Models Section -->
+        <section id="variants" class="variants">
+            <div class="container">
+                <h2 class="section-title">Select Your Nexus</h2>
+                <div class="variants-grid">
+                    <div class="variant-card glass-card">
+                        <div class="variant-img prototype"></div>
+                        <h3>Nexus Alpha</h3>
+                        <p>The purest, most refined driving experience.</p>
+                    </div>
+                    <!-- Highlighted card for premium variant -->
+                    <div class="variant-card glass-card highlight-card">
+                        <div class="variant-img performance"></div>
+                        <h3>Nexus Omega</h3>
+                        <p>Track-focused aero package with unleashed power output.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Gallery Slider -->
+        <section id="gallery" class="gallery glass-section">
+            <div class="container">
+                <h2 class="section-title">Digital Gallery</h2>
+                <div class="gallery-slider">
+                    <div class="gallery-track">
+                        <div class="gallery-item glass-card">Design</div>
+                        <div class="gallery-item glass-card">Interior Cabin</div>
+                        <div class="gallery-item glass-card">Autonomous Tech</div>
+                        <div class="gallery-item glass-card">Performance Core</div>
+                        <div class="gallery-item glass-card">Aerodynamics</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing">
+            <div class="container">
+                <h2 class="section-title">Configure & Order</h2>
+                <div class="pricing-card glass-card">
+                    <div class="price-header">
+                        <h3>Nexus Alpha Edition</h3>
+                        <p class="price">$149,900</p>
+                    </div>
+                    <ul class="features-list">
+                        <li>Level 5 Autonomy System</li>
+                        <li>Hyper-charge capable (10-80% in 5 mins)</li>
+                        <li>Aerospace-grade carbon fiber monocoque</li>
+                        <li>Neural-link infotainment interface</li>
+                        <li>Lifetime connectivity</li>
+                    </ul>
+                    <button class="btn-primary full-width">Reserve Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section id="contact" class="contact glass-section">
+            <div class="container">
+                <h2 class="section-title">Contact Concierge</h2>
+                <form id="contactForm" class="contact-form glass-card">
+                    <div class="form-group">
+                        <label>Name <span style="color:#ff4444">*</span></label>
+                        <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span style="color:#ff4444">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Interest <span style="color:#ff4444">*</span></label>
+                        <select id="interest" name="interest" required>
+                            <option value="" disabled selected>Select your interest</option>
+                            <option value="Book Test Drive">Book Test Drive</option>
+                            <option value="Reserve Vehicle">Reserve Vehicle</option>
+                            <option value="General Inquiry">General Inquiry</option>
+                            <option value="Press & Media">Press & Media</option>
+                        </select>
+                    </div>
+                    <div id="formMessage" style="display: none; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 600; text-align: center; transition: all 0.3s ease;"></div>
+                    <button type="submit" id="submitBtn" class="btn-primary full-width">Submit Request</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content glass-card">
+            <div class="footer-logo">NEXUS</div>
+            <div class="social-links">
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">YouTube</a>
+            </div>
+            <p>&copy; 2026 Nexus Automotive Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript File -->
+    <script src="script.js"></script>
+</body>
+</html>
