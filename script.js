@@ -421,8 +421,8 @@ if(contactForm) {
         submitBtn.innerText = "Processing...";
 
         try {
-            // Sends to our local/Railway backend endpoint to support AUTO-REPLIES
-            const response = await fetch('/api/contact', {
+            // Sends POST request to the new Formspree URL
+            const response = await fetch('https://formspree.io/f/mpqybwow', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -432,11 +432,15 @@ if(contactForm) {
             });
 
             if (response.ok) {
-                showMessage('Success! Your test drive request has been sent. Check your email!', 'success');
+                showMessage('Success! Your test drive request has been sent.', 'success');
                 contactForm.reset();
             } else {
                 const data = await response.json();
-                showMessage(data.error || 'Failed to submit the form.', 'error');
+                if (Object.hasOwn(data, 'errors')) {
+                    showMessage(data.errors.map(error => error.message).join(", "), 'error');
+                } else {
+                    showMessage('Failed to submit the form.', 'error');
+                }
             }
         } catch (error) {
             console.error('Error:', error);
