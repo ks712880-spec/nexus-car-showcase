@@ -421,23 +421,31 @@ if(contactForm) {
         submitBtn.innerText = "Processing...";
 
         try {
-            // Sends to our backend via relative path (works on localhost:3000 and deployed on Railway!)
-            const response = await fetch('/api/contact', {
+            // Sends to Formspree
+            // TODO: Generate a new form on Formspree.io for kunalsoni7651@gmail.com and paste your URL endpoint below!
+            const response = await fetch('https://formspree.io/f/YOUR_FORMSPREE_ID_HERE', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
                 body: JSON.stringify({ name, email, interest })
             });
 
             if (response.ok) {
-                showMessage('Success! Your request has been sent.', 'success');
+                showMessage('Success! Your test drive request has been sent.', 'success');
                 contactForm.reset();
             } else {
                 const data = await response.json();
-                showMessage(data.error || 'Failed to submit the form.', 'error');
+                if (Object.hasOwn(data, 'errors')) {
+                    showMessage(data.errors.map(error => error.message).join(", "), 'error');
+                } else {
+                    showMessage('Failed to submit the form.', 'error');
+                }
             }
         } catch (error) {
             console.error('Error:', error);
-            showMessage('Cannot connect to the backend server. Make sure it is running.', 'error');
+            showMessage('Cannot connect to the server. Please check your connection.', 'error');
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerText = "Submit Request";
