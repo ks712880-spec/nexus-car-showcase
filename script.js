@@ -421,14 +421,15 @@ if(contactForm) {
         submitBtn.innerText = "Processing...";
 
         try {
-            // Sends POST request to the new Formspree URL
+            // Guaranteeing Formspree recognizes the inputs using native FormData mappings!
+            const formData = new FormData(contactForm);
+            
             const response = await fetch('https://formspree.io/f/mpqybwow', {
                 method: 'POST',
                 headers: { 
-                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ name, email, interest })
+                body: formData
             });
 
             if (response.ok) {
