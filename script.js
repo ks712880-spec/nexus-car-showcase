@@ -422,8 +422,8 @@ if(contactForm) {
 
         try {
             // Sends to Formspree
-            // TODO: Generate a new form on Formspree.io for kunalsoni7651@gmail.com and paste your URL endpoint below!
-            const response = await fetch('https://formspree.io/f/YOUR_FORMSPREE_ID_HERE', {
+            // Endpoint connected to your Formspree account
+            const response = await fetch('https://formspree.io/f/xdawbkgb', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
