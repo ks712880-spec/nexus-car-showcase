@@ -44,22 +44,33 @@ app.post('/api/contact', async (req, res) => {
     }
 
     try {
-        // 1. Send Email Notification
-        const mailOptions = {
+        // 1. Lead Notification sent to Owner (Kunal)
+        const ownerMailOptions = {
             from: process.env.EMAIL_USER,
             to: 'kunalsoni7651@gmail.com', // Target email
             subject: `New Lead: ${interest} from ${name}`,
             text: `You have received a new form submission!\n\nName: ${name}\nEmail: ${email}\nInterest: ${interest}\n\nPlease contact them back.`
         };
 
-        // Try sending email (Failure here blocks the process for safety, unless configured otherwise)
+        // 2. Auto-Reply Email sent to User
+        const userMailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email, // Target the user's email from the form
+            subject: `Thank you for choosing Nexus Automotive!`,
+            text: `Hi ${name},\n\nWe received your request for: ${interest}.\n\nOur concierge team is reviewing your details and will be in touch shortly to finalize the arrangements.\n\nBest regards,\nThe Nexus Automotive Team`
+        };
+
+        // Try sending both emails safely
         if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
             try {
-                await transporter.sendMail(mailOptions);
-                console.log("Email sent successfully!");
+                await Promise.all([
+                    transporter.sendMail(ownerMailOptions),
+                    transporter.sendMail(userMailOptions)
+                ]);
+                console.log("Owner notification AND User auto-reply sent successfully!");
             } catch (emailErr) {
                 console.error("Email error:", emailErr);
-                // Depending on priority, we can throw Error here or let it continue to Sheets.
+                throw new Error("Failed to send email. Check Nodemailer credentials in .env");
             }
         } else {
             console.log("Skipped email. Nodemailer not fully configured in ENV.");
